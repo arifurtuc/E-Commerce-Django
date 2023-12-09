@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import ListView
 from .models import Product
 
@@ -16,5 +17,18 @@ class IndexView(ListView):
         if product_name != '' and product_name is not None:
             product_list = product_list.filter(name__icontains=product_name)
 
-        context['products'] = product_list
+        # Pagination
+        paginator = Paginator(product_list, 4)
+        page = self.request.GET.get('page')
+
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver the first page
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range , deliver the last page of results
+            products = paginator.page(paginator.num_pages)
+
+        context['products'] = products
         return context
