@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce</title>
+</head>
+<body>
+    {% for product in products %}
+        <img src="{{ product.image }}" height="150px" width="150px">
+        <h4> {{ product.name }} </h4>
+    {% endfor %}
+</body>
+</html>
