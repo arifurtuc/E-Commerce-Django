@@ -1,0 +1,46 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            <!-- Product image -->
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="{{ product.image }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product details -->
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>{{ product.name }}</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Price:</strong>${{ product.discount_price }}
+                            <span class="text-decoration-line-through text-muted">${{ product.price }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><strong>Description:</strong> {{ product.description }}</p>
+                        <a class="btn btn-dark">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

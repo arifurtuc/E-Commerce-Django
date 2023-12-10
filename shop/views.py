@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Product
 
 
@@ -32,3 +32,9 @@ class IndexView(ListView):
 
         context['products'] = products
         return context
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'shop/detail.html'
+    context_object_name = 'product'
