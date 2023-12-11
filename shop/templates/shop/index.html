@@ -27,9 +27,7 @@
                 <div class="card">
                     <img class="card-img-top" src="{{ product.image }}" height="300px" width="300px">
                     <div class="card-body">
-                        <div id="pd{{product.id}}" class="card-title">
-                            {{ product.name }}
-                        </div>
+                        <div id="pd{{product.id}}" class="card-title">{{ product.name }}</div>
                         <div class="card-text">
                             $ {{ product.discount_price }}
                             <span class="text-decoration-line-through text-muted">${{ product.price }}</span>
@@ -96,10 +94,11 @@
 
         for (var x in cart) {
             cartString += cartIndex;
-            cartString += document.getElementById('pd' + x).innerHTML + ' Qty: ' + cart[x] + '<br>';
+            cartString += document.getElementById('pd' + x).innerHTML + ' Qty: ' + cart[x][0] + '<br>';
             cartIndex +=1;
         }
 
+        cartString += "<a class='btn btn-warning' href='{% url 'checkout' %}' id='checkout'>Checkout</a>";
         updatePopoverContent(cartString);
     }
 
@@ -112,9 +111,12 @@
     $(document).on('click', '.atc', function () {
         var product_id = this.id.toString();
         if (cart[product_id] !== undefined) {
-            cart[product_id] = cart[product_id] + 1;
+            quantity = cart[product_id][0] + 1;
+            cart[product_id][0] = quantity;
         } else {
-            cart[product_id] = 1;
+            quantity = 1;
+            name = document.getElementById('pd' + product_id).innerHTML;
+            cart[product_id] = [quantity,name];
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         document.getElementById('cart').innerHTML = 'Cart(' + Object.keys(cart).length + ')';
