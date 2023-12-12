@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import Product
 
 
@@ -40,7 +40,5 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
 
-class CheckoutView(ListView):
-    model = Product
+class CheckoutView(TemplateView):
     template_name = 'shop/checkout.html'
-    context_object_name = 'product'
