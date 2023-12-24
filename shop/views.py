@@ -58,4 +58,8 @@ def checkout(request):
         )
         order.save()
 
+        success_flag = True
+        return render(request, 'shop/checkout.html',
+                      {'success_flag': success_flag})
+
     return render(request, 'shop/checkout.html')

@@ -56,6 +56,11 @@
 {% endblock %}
 
 {% block script %}
+{% if success_flag %}
+    <script>
+        localStorage.removeItem('cart');
+    </script>
+{% endif %}
 <script type="text/javascript">
     // Check if the 'cart' data exists in the localStorage
     if(localStorage.getItem('cart')==null){
@@ -75,8 +80,8 @@
 
 
         productString = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                         ${name}
                             <span class="badge bg-primary rounded-pill">${quantity}</span>
+                            ${name}
                             <span class="badge bg-warning text-dark">$${price}</span>
                         </li>`
         $('#product_list').append(productString);
