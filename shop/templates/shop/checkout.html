@@ -30,17 +30,21 @@
                     <label for="address" class="form-label">Address</label>
                     <input type="text" class="form-control" id="address" name="address" placeholder="Street name 1234, 01010 Berlin">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                     <label for="city" class="form-label">City</label>
                     <input type="text" class="form-control" id="city" name="city">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     <label for="state" class="form-label">State</label>
                     <input type="text" class="form-control" id="state" name="state">
                     </div>
                     <div class="col-md-2">
                     <label for="zipcode" class="form-label">Zip</label>
                     <input type="text" class="form-control" id="zipcode" name="zipcode">
+                    </div>
+                    <div class="col-md-4">
+                    <label for="total_price" class="form-label">Amount to be paid</label>
+                    <input type="text" class="form-control" id="total_price" name="total_price" readonly>
                     </div>
                     <div class="col-12">
                     <button type="submit" class="btn btn-primary">Place Order</button>
@@ -61,17 +65,27 @@
        cart = JSON.parse(localStorage.getItem('cart')) ;
     }
 
+    let total = 0;
     // Iterate through each product in the 'cart' object
     for(product in cart){
         let name = cart[product][1];
         let quantity = cart[product][0];
-        console.log(name);
+        let price = cart[product][2];
+        total = total + cart[product][2];
+
+
         productString = `<li class="list-group-item d-flex justify-content-between align-items-center">
                          ${name}
                             <span class="badge bg-primary rounded-pill">${quantity}</span>
+                            <span class="badge bg-warning text-dark">$${price}</span>
                         </li>`
         $('#product_list').append(productString);
     }
+    totalPrice = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Total price</strong>$${total}
+                  </li>`
+    $('#total_price').val(total);
+    $('#product_list').append(totalPrice);
     $('#products').val(JSON.stringify(cart));
 </script>
 {% endblock %}
