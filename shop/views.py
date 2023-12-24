@@ -42,8 +42,8 @@ class ProductDetailView(DetailView):
 
 
 def checkout(request):
-
     if request.method == 'POST':
+        products = request.POST.get('products', '')
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
         address = request.POST.get('address', '')
@@ -52,8 +52,8 @@ def checkout(request):
         zipcode = request.POST.get('zipcode', '')
 
         order = Order(
-            name=name, email=email, address=address, city=city, state=state,
-            zipcode=zipcode
+            products=products, name=name, email=email, address=address,
+            city=city, state=state, zipcode=zipcode
         )
         order.save()
 

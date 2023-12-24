@@ -17,6 +17,7 @@
             <div class="col-md-8">
                 <form method="POST" class="row g-3">
                     {% csrf_token %}
+                    <input type="hidden" id="products" name="products">
                     <div class="col-md-6">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name">
@@ -71,5 +72,6 @@
                         </li>`
         $('#product_list').append(productString);
     }
+    $('#products').val(JSON.stringify(cart));
 </script>
 {% endblock %}
